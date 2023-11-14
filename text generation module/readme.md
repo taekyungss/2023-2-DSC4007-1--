@@ -6,7 +6,7 @@
 
 ### 3. install
 
-'''python
+'''
 !conda create -n chatbot python=3.9
 !pip install openai
 !pip install langchain
