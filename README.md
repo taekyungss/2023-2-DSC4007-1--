@@ -6,4 +6,4 @@
 ### 전반적인 아키텍처
 
 
-<img src="./image01.png" height="600" width="800px"></img>
+<img src="./image01.png" height="500" width="500px"></img>
