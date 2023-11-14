@@ -1,7 +1,8 @@
 ## text mining
 
-
+``` py
 pip install nltk
 pip install konlpy
 pip install matplotlib
 pip install wordcloud
+``` 
