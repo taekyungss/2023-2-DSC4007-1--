@@ -5,5 +5,5 @@
 
 ### 전반적인 아키텍처
 
-![poster](./image01.png)
-<img src="./image01.png", height="100x", width="100px">
+
+<img src="./image01.png", height="100x", width="100px"></img>
