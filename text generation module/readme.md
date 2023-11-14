@@ -5,9 +5,12 @@
 ### 2. langchain chat_ai의 chat_template 필수 및 5개 조건 지정
 
 ### 3. install
+
 '''py
-conda create -n chatbot python=3.9
-pip install openai
-pip install langchain
-pip install gradio
+
+!conda create -n chatbot python=3.9
+!pip install openai
+!pip install langchain
+!pip install gradio
+
 '''
