@@ -6,6 +6,7 @@
 !pip install openai
 !pip install langchain
 !pip install gradio
+!pip install pandas
 ```
 
 ### 1. 사용한 tool : langchain, openAI API (whisper-1, gpt-3.5-turbo, gpt-3.5-turbo-instruct), gradio demo
