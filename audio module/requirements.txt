@@ -1,0 +1,4 @@
+transformer >=4.36.0
+dotnev
+openai>=1.1.1
+gradio>=4.1.1
