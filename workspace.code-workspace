@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"name": "capstone",
+			"path": "."
+		}
+	],
+	"settings": {
+		"jupyter.jupyterServerType": "local"
+	}
+}
