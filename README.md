@@ -54,11 +54,12 @@
 
 
 ## 생성 결과 평가
-● 프롬프팅 여부에 대한 BLEU score 평가
+
+#### 프롬프팅 여부에 대한 BLEU score 평가
 <img src="image/bleu.png" height = "300px" width="300px"></img>
 
 
-● 프롬프팅 여부에 대한 human evaluation 평가
+#### 프롬프팅 여부에 대한 human evaluation 평가
 <img src="image//human_eval.png" height = "300px" width="300px"></img>
 
 
