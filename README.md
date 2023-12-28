@@ -39,19 +39,23 @@
 #### 3. 위기가구 욕구 카테고리 분류 및 데이터 마이닝
 
 저장된 상담 내용에 대한 텍스트 분석을 통해 대화에서 나온 키워드를 파악하고 이를 워드 클라우드로 나타내 상담 내용을 알기 쉽게 시각화합니다. 또한, 의료/건강, 요금 체납 등 사전에 정해져 있는 카테고리에 관련이 있는 단어들을 분석하여 피상담자가 어떤 카테고리에 대한 욕구를 가지고 있는지를 분류합니다. 분류 결과를 실제 상담사에게 전달함으로써 어느 카테고리로 분류되는 위기 가구인지에 대해 파악하는 시간을 절약할 수 있도록 합니다. 
-
+<img src="image/classficiation.png" height="300" width="600px"></img>
+<img src="image/wordcloud.png" height="300" width="600px"></img>
 
 ## 생성 결과 평가
 ● 프롬프팅 여부에 대한 BLEU score 평가
+<img src="image/bleu.png" height="300" width="600px"></img>
 
 
-● 프롬프팅 여부에 대한 BLEU score 평가
-
+● 프롬프팅 여부에 대한 human evaluation 평가
+<img src="image/human_eval.png" height="300" width="600px"></img>
 
 
 ## 최종 웹 데모 구성
 
 #### 위기가구 발굴을 위한 상담시스템 웹 데모 구현 결과
+<img src="image/작품 사진1.jpg" height="300" width="600px"></img>
+<img src="image/작품 사진 2.jpg" height="300" width="600px"></img>
 
 
 취약계층을 위한 AI음성챗봇 (위기가구용 데모 페이지)
