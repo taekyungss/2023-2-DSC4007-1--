@@ -55,18 +55,18 @@
 
 ## 생성 결과 평가
 ● 프롬프팅 여부에 대한 BLEU score 평가
-<img src="image/bleu.png" width="600px"></img>
+<img src="image/bleu.png" width="400px"></img>
 
 
 ● 프롬프팅 여부에 대한 human evaluation 평가
-<img src="image/human_eval.png" width="600px"></img>
+<img src="image/human_eval.png" width="400px"></img>
 
 
 ## 최종 웹 데모 구성
 
 #### 위기가구 발굴을 위한 상담시스템 웹 데모 구현 결과
-<img src="image/작품 사진1.jpg" width="600px"></img>
-<img src="image/작품 사진 2.jpg" width="600px"></img>
+<img src="image/작품 사진1.jpg" width="400px"></img>
+<img src="image/작품 사진 2.jpg" width="400px"></img>
 
 
 취약계층을 위한 AI음성챗봇 (위기가구용 데모 페이지)
