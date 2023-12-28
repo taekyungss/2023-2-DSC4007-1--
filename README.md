@@ -49,7 +49,7 @@
 분류 결과를 실제 상담사에게 전달함으로써 어느 카테고리로 분류되는 위기 가구인지에 대해 파악하는 시간을 절약할 수 있도록 합니다. 
 
 <img src="image/classficiation.png" height = "300px" width="300px"></img>
-<img src="image/wordcloud.png" height="300px" width="300px"></img>
+<img src="image/wordcloud.png" height="250px" width="250px"></img>
 
 
 
