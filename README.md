@@ -1,4 +1,4 @@
-# AI 음성봇을 활용한 상담 시스템 시나리오 설계 및 서비스 구현 프로젝트
+# AI 음성봇을 활용한 상담 시스템 시나리오 설계 및 서비스 구현
 (Consultation system scenario design and service implementation using AI voice bot)
 
 ## 🕒Development period
