@@ -65,8 +65,8 @@
 ## 최종 웹 데모 구성
 
 #### 위기가구 발굴을 위한 상담시스템 웹 데모 구현 결과
-<img src="image/작품 사진1.jpg" height = "400px" width="400px"></img>
-<img src="image/작품 사진 2.jpg" height="400px" width="400px"></img>
+<img src="image/작품 사진1.jpg" height = "300px" width="300px"></img>
+<img src="image/작품 사진 2.jpg" height="300px" width="300px"></img>
 
 
 취약계층을 위한 AI음성챗봇 (위기가구용 데모 페이지)
