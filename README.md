@@ -55,11 +55,11 @@
 
 ## 생성 결과 평가
 ● 프롬프팅 여부에 대한 BLEU score 평가
-<img src="image/bleu.png" width="400px"></img>
+<img src="image/bleu.png" width="400px" align='left></img>
 
 
 ● 프롬프팅 여부에 대한 human evaluation 평가
-<img src="image/human_eval.png" width="400px"></img>
+<img src="image/human_eval.png" width="400px" align='left></img>
 
 
 ## 최종 웹 데모 구성
