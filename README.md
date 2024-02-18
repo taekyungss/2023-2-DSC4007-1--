@@ -66,9 +66,10 @@
 ## 최종 웹 데모 구성
 
 #### 위기가구 발굴을 위한 상담시스템 웹 데모 구현 결과
+https://github.com/taekyungss/AI-VoiceBot-toDiscover-the-Vulnerable/assets/97516571/e57d7061-b3c9-4b0d-ab0e-c58a566a3248
 ##### 취약계층을 위한 AI음성챗봇 (위기가구용 데모 페이지), 복지상담사를 위한 위기가구 상담 결과 시각화 대시보드
-<img src="image/작품 사진1.jpg" height = "400px" width="400px"></img>
 <img src="image/작품 사진 2.jpg" height="400px" width="400px"></img>
+
 
 
 
