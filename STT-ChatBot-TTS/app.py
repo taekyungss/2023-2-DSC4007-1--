@@ -18,6 +18,7 @@ from langchain import PromptTemplate, LLMChain
 from langchain.llms import OpenAI
 import pandas as pd
 
+import time
 import os
 import gradio as gr
 from openai import OpenAI
@@ -28,6 +29,7 @@ load_dotenv()
 os.environ['OPENAI_API_KEY'] = os.getenv("API_KEY")
 
 '''---------------------- STT ----------------------'''
+
 BATCH_SIZE = 16
 MAX_AUDIO_MINS = 30  # maximum audio input in minutes
 
@@ -43,6 +45,7 @@ model = AutoModelForSpeechSeq2Seq.from_pretrained(
 if not use_flash_attention_2:
     # use flash attention from pytorch sdpa
     model = model.to_bettertransformer()
+
 
 processor = AutoProcessor.from_pretrained("openai/whisper-large-v3")
 
@@ -64,12 +67,13 @@ pipe_forward = pipe._forward
 
 
 def transcribe(inputs):
-    if inputs is None:
-        raise gr.Error("입력된 오디오 파일이 없습니다! 요청을 하기 전에 오디오 파일을 녹음하거나 업로드하십시오.")
+    #if inputs is None:
+        #raise gr.Error("입력된 오디오 파일이 없습니다! 요청을 하기 전에 오디오 파일을 녹음하거나 업로드하십시오.")
 
     with open(inputs, "rb") as f:
         inputs = f.read()
 
+    print(inputs)
     inputs = ffmpeg_read(inputs, pipe.feature_extractor.sampling_rate)
     audio_length_mins = len(inputs) / pipe.feature_extractor.sampling_rate / 60
 
@@ -92,11 +96,13 @@ def transcribe(inputs):
     pipe._forward = _forward_time
     text = pipe(inputs, batch_size=BATCH_SIZE)["text"]
 
-    yield text, runtime
+    return text, runtime
+
+
 
 '''---------------------- LLM ----------------------'''
 
-data = pd.read_csv("../../../capstone-23_2/data.csv")
+data = pd.read_csv("./data.csv")
 chat_template = f"""필수 : 나는 복지상담을 진행하는 음성봇 이며 이름은 아이이다.
 한번의 답변에 한가지 질문만 한다. 
 공손하고 예의바르게 말을 해야한다. 
@@ -166,11 +172,11 @@ def summarize(history):
     return summarize_chain.run(history)
 
 
-
-
 '''---------------------- TTS ----------------------'''
 
 client = OpenAI()
+
+
 def tts(text, model, voice):
     response = client.audio.speech.create(
         model=model,  # "tts-1","tts-1-hd"
@@ -188,7 +194,7 @@ def tts(text, model, voice):
 
     runtime = round(runtime, 2)
 
-    yield speech_file_path, runtime
+    return speech_file_path, runtime
 
 
 if __name__ == "__main__":
@@ -203,77 +209,60 @@ if __name__ == "__main__":
                     </div>
                 """
             )
+
+                #STT
+        with gr.Column(variant='compact'):
             gr.HTML(
-                f"""
-                <ol> <STT>  openAI: Whisper-large-v2 </ol>
+                """
+                    <div style="text-align: start; max-width: 1450px; margin: 0 auto;">
+                      <div style="display: inline-flex; align-items: center; gap: 0.8rem; font-size: 1.75rem; " >
+                        <h2 style="font-weight: 900; line-height: normal; style: "> Whisper-large-v3   </h2>
+                      </div>
+                    </div>
                 """
             )
-            #STT
-            audio = gr.components.Audio(type="filepath", label="음성 입력")
-            button = gr.Button("전사하기")
             with gr.Row():
+
+                audio = gr.components.Audio(type="filepath", label="음성 입력", sources=["microphone"])
+                transcription = gr.components.Textbox(label="Whisper 전사내용", show_copy_button=True,visible=False)
                 runtime = gr.components.Textbox(visible=False, label="Whisper 전사시간(s)")
-            with gr.Row():
-                transcription = gr.components.Textbox(label="Whisper 전사내용", show_copy_button=True)
-            button.click(
-                    fn=transcribe,
-                    inputs=audio,
-                    outputs=[transcription, runtime],
-                )
-        with gr.Column():
-            gr.HTML(
-                f"""
-                              <ol> <TTS> openAI: chatGPT-4 </ol>
-                              """
-            )
-            with gr.Row():
-                chatbot = gr.Chatbot()
+                audio.change(
+                            fn=transcribe,
+                            inputs=audio,
+                            outputs=[transcription, runtime],
+                        )
 
-            send = gr.Button("AI 대답받기")
-            chatbot_text = gr.components.Textbox(visible=False)
-            send.click(response, [transcription, chatbot], outputs=[chatbot_text,chatbot])
-
-        '''
-            gr.ChatInterface(
-                fn=response,
-                textbox=gr.Textbox(placeholder="말걸어주세요..", container=False, scale=7),
-                # 채팅창의 크기를 조절한다.
-                chatbot=gr.Chatbot(height=500),
-                title="아이(윙윙이)",
-                description='대화가 끝나면 "대화종료" 를 입력해주세요',
-                theme="soft",
-                retry_btn="다시보내기 ↩",
-                undo_btn="이전챗 삭제 ❌",
-                clear_btn="전챗 삭제 💫",
-            )
-        '''
-        with gr.Column():
+        with gr.Column(variant='compact'):
             gr.HTML(
-                f"""
-                      <ol> <TTS>  openAI: TTS-1 </ol>
-                      """
+                """
+                    <div style="text-align: start;max-width: 1450px; margin: 0 auto;">
+                      <div style="display: inline-flex; align-items: center; gap: 0.8rem; font-size: 1.75rem; " >
+                        <h2 style="font-weight: 900; line-height: normal; style: "> ChatGPT-4-Turbo   </h2>
+                      </div>
+                    </div>
+                """
             )
-            #TTS
             with gr.Row():
+
+                chatbot = gr.Chatbot(height=240)
+                chatbot_text = gr.components.Textbox(visible=False)
+                transcription.change(response, inputs=[transcription,chatbot], outputs=[chatbot_text, chatbot])
+
+        with gr.Column(variant='compact'):
+            gr.HTML(
+                """
+                    <div style="text-align: start; max-width: 1450px; margin: 0 auto;">
+                      <div style="display: inline-flex; align-items: center; gap: 0.8rem; font-size: 1.75rem; " >
+                        <h2 style="font-weight: 900; line-height: normal; style: "> TTS-1   </h2>
+                      </div>
+                    </div>
+                """
+            )
+            with gr.Row():
+
                 model = gr.Dropdown(choices=['tts-1', 'tts-1-hd'], label='모델', value='tts-1')
-                voice = gr.Dropdown(choices=['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer'], label='보이스옵션',
-                                    value='nova')
-            #text = gr.Textbox(label="텍스트입력",
-                           #   placeholder="텍스트를 입력하고 텍스트 음성 변환 버튼을 누르거나 Enter 키를 누릅니다.")
-            btn = gr.Button("음성합성하기")
-            output_audio = gr.Audio(label="음성 출력")
-            print(chatbot)
-            chatbot_text.submit(fn=tts, inputs=[chatbot_text, model, voice], outputs=[output_audio,runtime], api_name="tts")
-            btn.click(fn=tts, inputs=[chatbot_text, model, voice], outputs=[output_audio,runtime], api_name="tts")
-
-        #샘플
-        gr.Markdown("## 음성샘플")
-        gr.Examples(
-            [["task1_01.wav"], ["task1_02.wav"]],
-            audio,
-            outputs=[transcription, runtime],
-            fn=transcribe,
-            cache_examples=False,
-        )
+                voice = gr.Dropdown(choices=['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer'], label='보이스옵션',value='nova')
+                output_audio = gr.Audio(label="음성 출력", autoplay=True)
+                chatbot_text.change(fn=tts, inputs=[chatbot_text, model, voice], outputs=[output_audio,runtime])
 
     demo.queue(max_size=10).launch()
